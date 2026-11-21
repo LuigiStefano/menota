@@ -1,0 +1,176 @@
+@font-face {
+    font-family: "Caveat";
+    src: url("../fonts/Caveat-Variable.ttf") format("truetype");
+    font-weight: 400 700;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Nunito";
+    src: url("../fonts/Nunito-Variable.ttf") format("truetype");
+    font-weight: 200 1000;
+    font-display: swap;
+}
+
+:root {
+    --oceano: #225d70;
+    --coral: #e98e83;
+    --fundo: #f2f8f8;
+    --papel: #ffffff;
+    --texto: #244a58;
+    --borda: #d9e6e9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: "Nunito", "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+.marca {
+    font-family: "Caveat", "Segoe Print", cursive;
+    line-height: 1.15;
+}
+
+h1 {
+    font-size: clamp(36px, 5vw, 54px);
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 34px;
+}
+
+.marca {
+    margin: 0;
+    color: var(--oceano);
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.acesso {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 60px;
+    width: min(1040px, 100%);
+    min-height: 100vh;
+    margin: auto;
+    padding: 32px 24px;
+}
+
+.boas-vindas p {
+    max-width: 400px;
+}
+
+.cartao {
+    min-width: 0;
+    padding: 32px;
+    background: var(--papel);
+    border: 1px solid var(--borda);
+    border-radius: 22px 22px 22px 6px;
+}
+
+label {
+    display: block;
+    margin: 16px 0 6px;
+    font-weight: 700;
+}
+
+input {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid #829da8;
+    border-radius: 9px;
+    background: white;
+    color: var(--texto);
+    font: inherit;
+}
+
+button {
+    min-height: 46px;
+    padding: 10px 22px;
+    border: 0;
+    border-radius: 9px;
+    background: var(--oceano);
+    color: white;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cartao form button {
+    width: 100%;
+    margin-top: 24px;
+    box-shadow: 0 3px 0 var(--coral);
+}
+
+button:hover {
+    background: #194858;
+}
+
+:focus-visible {
+    outline: 3px solid var(--oceano);
+    outline-offset: 4px;
+}
+
+.mensagem {
+    padding: 12px;
+    background: #e6f1f3;
+    border-radius: 8px;
+}
+
+.erro {
+    background: #fcebe7;
+    color: #8a2635;
+}
+
+.pagina {
+    width: min(1100px, 100%);
+    margin: auto;
+    padding: 24px;
+}
+
+.barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.secundario {
+    background: white;
+    color: var(--oceano);
+    border: 1px solid var(--oceano);
+}
+
+.secundario:hover {
+    background: #e6f1f3;
+}
+
+@media (max-width: 720px) {
+    .acesso {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px 18px;
+    }
+
+    .boas-vindas h1 {
+        margin: 12px 0;
+    }
+
+    .cartao {
+        padding: 24px;
+    }
+}
