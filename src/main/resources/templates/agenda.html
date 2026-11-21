@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minha agenda | MeNota</title>
+    <link rel="stylesheet" th:href="@{/css/menota.css}">
+</head>
+<body>
+<main class="pagina">
+    <header class="barra">
+        <p class="marca">MeNota</p>
+
+        <form th:action="@{/logout}" method="post">
+            <button class="secundario" type="submit">Sair</button>
+        </form>
+    </header>
+
+    <h1>Minha agenda</h1>
+    <p>Um momento para perceber como você está.</p>
+
+    <p class="mensagem" role="status"
+       th:if="${sucesso}" th:text="${sucesso}"></p>
+
+    <p class="mensagem erro" role="alert"
+       th:if="${erro}" th:text="${erro}"></p>
+
+    <div class="colunas-agenda">
+        <section class="cartao" aria-labelledby="titulo-escrita">
+            <h2 id="titulo-escrita">Como foi seu dia?</h2>
+
+            <form th:action="@{/paciente/notas}" method="post">
+
+
+                <textarea id="texto"
+                          name="texto"
+                          aria-label="Minha anotação"
+                          rows="8"
+                          required
+                          th:text="${texto}"></textarea>
+
+                <button type="submit">Registrar anotação</button>
+            </form>
+        </section>
+
+        <section class="cartao" aria-labelledby="titulo-historico">
+            <h2 id="titulo-historico">Meus registros</h2>
+
+            <p th:if="${#lists.isEmpty(notas)}">
+                Sua primeira anotação pode começar com uma frase.
+            </p>
+
+            <article class="registro" th:each="nota : ${notas}">
+                <h3>
+                    <time th:datetime="${nota.data}"
+                          th:text="${#temporals.format(
+                              nota.data, 'dd/MM/yyyy'
+                          )}"></time>
+                </h3>
+
+                <p class="relato" th:text="${nota.texto}"></p>
+            </article>
+        </section>
+    </div>
+</main>
+</body>
+</html>

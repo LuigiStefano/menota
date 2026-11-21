@@ -25,17 +25,6 @@ public class PaginaController {
         return "redirect:/paciente";
     }
 
-    @GetMapping("/paciente")
-    public String paciente(
-            Authentication autenticacao,
-            Model model
-    ) {
-        model.addAttribute("titulo", "Minha agenda");
-        model.addAttribute("descricao", "Um espaço para olhar para si.");
-        model.addAttribute("email", autenticacao.getName());
-
-        return "inicio";
-    }
 
     @GetMapping("/profissional")
     public String profissional(
