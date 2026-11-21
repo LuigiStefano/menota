@@ -6,7 +6,6 @@ import menota.repository.AutorizacaoRepository;
 import menota.repository.UsuarioRepository;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -81,4 +80,5 @@ public class AutorizacaoService {
 
         return paciente;
     }
+
 }

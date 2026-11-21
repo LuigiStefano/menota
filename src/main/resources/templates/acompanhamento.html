@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acompanhamento | MeNota</title>
+    <link rel="stylesheet" th:href="@{/css/menota.css}">
+</head>
+<body>
+<main class="pagina">
+    <header class="barra">
+        <p class="marca">MeNota</p>
+
+        <form th:action="@{/logout}" method="post">
+            <button class="secundario" type="submit">Sair</button>
+        </form>
+    </header>
+
+    <a class="link-botao" th:href="@{/profissional}">
+        Voltar para pacientes
+    </a>
+
+    <h1 th:text="${paciente.nome}"></h1>
+
+    <div class="colunas-agenda">
+        <section class="cartao">
+            <h2>Registros</h2>
+
+            <p th:if="${#lists.isEmpty(notas)}">
+                Nenhuma anotação registrada.
+            </p>
+
+            <article class="registro" th:each="nota : ${notas}">
+                <h3>
+                    <time th:datetime="${nota.data}"
+                          th:text="${#temporals.format(
+                              nota.data, 'dd/MM/yyyy'
+                          )}"></time>
+                </h3>
+
+                <p class="relato" th:text="${nota.texto}"></p>
+            </article>
+        </section>
+
+        <section class="cartao">
+            <h2>Resumo do período</h2>
+
+            <form class="form-resumo"
+                  th:action="@{/profissional/pacientes/{id}/resumo(
+                      id=${paciente.id}
+                  )}"
+                  method="post">
+
+                <label for="dias">Período</label>
+
+                <select id="dias" name="dias">
+                    <option value="7" th:selected="${dias == 7}">
+                        Últimos 7 dias
+                    </option>
+                    <option value="30" th:selected="${dias == 30}">
+                        Últimos 30 dias
+                    </option>
+                </select>
+
+                <button type="submit">Gerar resumo</button>
+            </form>
+
+            <p class="mensagem erro"
+               role="alert"
+               th:if="${erro}"
+               th:text="${erro}"></p>
+
+            <div th:if="${resumo != null}">
+                <p>
+                    De
+                    <span th:text="${#temporals.format(
+                        resumo.inicio, 'dd/MM/yyyy'
+                    )}"></span>
+                    a
+                    <span th:text="${#temporals.format(
+                        resumo.fim, 'dd/MM/yyyy'
+                    )}"></span>
+                </p>
+
+                <p class="relato" th:text="${resumo.texto}"></p>
+            </div>
+        </section>
+    </div>
+</main>
+</body>
+</html>

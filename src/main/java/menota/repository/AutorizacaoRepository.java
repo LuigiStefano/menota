@@ -3,7 +3,7 @@ package menota.repository;
 import menota.model.Profissional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
+import menota.model.Paciente;
 import java.util.List;
 
 @Repository
@@ -55,5 +55,45 @@ public class AutorizacaoRepository {
                 """;
 
         jdbc.update(sql, pacienteId, profissionalId);
+    }
+
+    public List<Paciente> listarPacientesAutorizados(Long profissionalId) {
+        String sql = """
+            SELECT u.id, u.nome, u.email
+            FROM autorizacoes a
+            JOIN usuarios u
+                ON u.id = a.paciente_id
+            WHERE a.profissional_id = ?
+              AND u.perfil = 'PACIENTE'
+            ORDER BY u.nome, u.id
+            """;
+
+        return jdbc.query(
+                sql,
+                (resultado, linha) -> new Paciente(
+                        resultado.getLong("id"),
+                        resultado.getString("nome"),
+                        resultado.getString("email")
+                ),
+                profissionalId
+        );
+    }
+
+    public boolean possuiAcesso(Long pacienteId, Long profissionalId) {
+        String sql = """
+            SELECT COUNT(*)
+            FROM autorizacoes
+            WHERE paciente_id = ?
+              AND profissional_id = ?
+            """;
+
+        Integer quantidade = jdbc.queryForObject(
+                sql,
+                Integer.class,
+                pacienteId,
+                profissionalId
+        );
+
+        return quantidade != null && quantidade > 0;
     }
 }

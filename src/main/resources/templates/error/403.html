@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Acesso não permitido | MeNota</title>
+    <link rel="stylesheet" th:href="@{/css/menota.css}">
+</head>
+<body>
+<main class="pagina">
+    <p class="marca">MeNota</p>
+
+    <section class="cartao">
+        <h1>Acesso não permitido</h1>
+        <p>Sua conta não possui permissão para abrir esta página.</p>
+
+        <a class="link-botao" th:href="@{/}">
+            Voltar para minha área
+        </a>
+    </section>
+</main>
+</body>
+</html>

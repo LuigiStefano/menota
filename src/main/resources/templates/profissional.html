@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pacientes | MeNota</title>
+    <link rel="stylesheet" th:href="@{/css/menota.css}">
+</head>
+<body>
+<main class="pagina">
+    <header class="barra">
+        <p class="marca">MeNota</p>
+
+        <form th:action="@{/logout}" method="post">
+            <button class="secundario" type="submit">Sair</button>
+        </form>
+    </header>
+
+    <h1>Pacientes</h1>
+
+    <section class="cartao">
+        <p th:if="${#lists.isEmpty(pacientes)}">
+            Nenhum paciente autorizou seu acesso.
+        </p>
+
+        <article class="registro" th:each="paciente : ${pacientes}">
+            <h2 th:text="${paciente.nome}"></h2>
+            <p th:text="${paciente.email}"></p>
+
+            <a class="link-botao"
+               th:href="@{/profissional/pacientes/{id}(
+                   id=${paciente.id}
+               )}">
+                Ver registros
+            </a>
+        </article>
+    </section>
+</main>
+</body>
+</html>
