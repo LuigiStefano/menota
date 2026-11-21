@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Permissões de acesso | MeNota</title>
+    <link rel="stylesheet" th:href="@{/css/menota.css}">
+</head>
+<body>
+<main class="pagina pagina-permissoes">
+    <header class="barra">
+        <p class="marca">MeNota</p>
+
+        <form th:action="@{/logout}" method="post">
+            <button class="secundario" type="submit">Sair</button>
+        </form>
+    </header>
+
+    <a class="link-botao" th:href="@{/paciente}">
+        Voltar para minha agenda
+    </a>
+
+    <h1>Permissões de acesso</h1>
+    <p>Você escolhe quem pode acompanhar seus relatos.</p>
+
+    <p class="mensagem"
+       role="status"
+       th:if="${sucesso}"
+       th:text="${sucesso}"></p>
+
+    <p class="mensagem erro"
+       role="alert"
+       th:if="${erro}"
+       th:text="${erro}"></p>
+
+    <section class="cartao">
+        <h2>Autorizar profissional</h2>
+
+        <form class="form-autorizacao"
+              th:action="@{/paciente/autorizacoes}"
+              method="post">
+
+            <div>
+                <label for="emailProfissional">
+                    E-mail da conta profissional
+                </label>
+
+                <input id="emailProfissional"
+                       name="emailProfissional"
+                       type="email"
+                       maxlength="160"
+                       autocomplete="email"
+                       th:value="${emailProfissional}"
+                       required>
+            </div>
+
+            <button type="submit">Autorizar acesso</button>
+        </form>
+    </section>
+
+    <section class="cartao">
+        <h2>Profissionais autorizados</h2>
+
+        <p th:if="${#lists.isEmpty(profissionais)}">
+            Você ainda não autorizou nenhum profissional.
+        </p>
+
+        <article class="profissional-autorizado"
+                 th:each="profissional : ${profissionais}">
+
+            <div class="identificacao-profissional">
+                <h3 th:text="${profissional.nome}"></h3>
+                <p th:text="${profissional.email}"></p>
+            </div>
+
+            <form th:action="@{/paciente/autorizacoes/{id}/revogar(
+                      id=${profissional.id}
+                  )}"
+                  method="post">
+
+                <button class="secundario" type="submit">
+                    Revogar acesso
+                </button>
+            </form>
+        </article>
+    </section>
+</main>
+</body>
+</html>

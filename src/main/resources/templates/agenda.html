@@ -17,6 +17,9 @@
     </header>
 
     <h1>Minha agenda</h1>
+    <a class="link-botao" th:href="@{/paciente/autorizacoes}">
+        Permissões de acesso
+    </a>
 
     <p class="mensagem" role="status"
        th:if="${sucesso}" th:text="${sucesso}"></p>

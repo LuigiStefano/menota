@@ -56,4 +56,29 @@ public class UsuarioRepository {
 
         jdbc.update(sql, nome, email, senha, perfil);
     }
+    public Optional<Usuario> buscarPorId(Long id) {
+        String sql = """
+            SELECT id, nome, email, senha, perfil
+            FROM usuarios
+            WHERE id = ?
+            """;
+
+        List<Usuario> usuarios = jdbc.query(
+                sql,
+                (resultado, linha) -> new Usuario(
+                        resultado.getLong("id"),
+                        resultado.getString("nome"),
+                        resultado.getString("email"),
+                        resultado.getString("senha"),
+                        resultado.getString("perfil")
+                ),
+                id
+        );
+
+        if (usuarios.isEmpty()) {
+            return Optional.empty();
+        }
+
+        return Optional.of(usuarios.get(0));
+    }
 }
