@@ -17,7 +17,6 @@
     </header>
 
     <h1>Minha agenda</h1>
-    <p>Um momento para perceber como você está.</p>
 
     <p class="mensagem" role="status"
        th:if="${sucesso}" th:text="${sucesso}"></p>
@@ -44,7 +43,13 @@
         </section>
 
         <section class="cartao" aria-labelledby="titulo-historico">
-            <h2 id="titulo-historico">Meus registros</h2>
+            <div class="cabecalho-registros">
+                <h2 id="titulo-historico">Meus registros</h2>
+
+                <a class="link-botao" th:href="@{/paciente/resumo}">
+                    Ver Resumo
+                </a>
+            </div>
 
             <p th:if="${#lists.isEmpty(notas)}">
                 Sua primeira anotação pode começar com uma frase.

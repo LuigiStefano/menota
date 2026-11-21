@@ -48,4 +48,29 @@ public class NotaRepository {
                 pacienteId
         );
     }
+    public List<Nota> listarPorPeriodo(
+            Long pacienteId,
+            LocalDate inicio,
+            LocalDate fim
+    ) {
+        String sql = """
+            SELECT id, data, texto
+            FROM notas
+            WHERE paciente_id = ?
+              AND data BETWEEN ? AND ?
+            ORDER BY data DESC, id DESC
+            """;
+
+        return jdbc.query(
+                sql,
+                (resultado, linha) -> new Nota(
+                        resultado.getLong("id"),
+                        resultado.getDate("data").toLocalDate(),
+                        resultado.getString("texto")
+                ),
+                pacienteId,
+                Date.valueOf(inicio),
+                Date.valueOf(fim)
+        );
+    }
 }

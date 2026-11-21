@@ -121,7 +121,6 @@ button:hover {
 
 :focus-visible {
     outline: 3px solid var(--oceano);
-    outline-offset: 4px;
 }
 
 .mensagem {
@@ -215,4 +214,51 @@ textarea {
     .colunas-agenda {
         grid-template-columns: 1fr;
     }
+}
+.link-botao {
+    display: inline-block;
+    min-height: 44px;
+    margin-bottom: 20px;
+    padding: 10px 16px;
+    border: 1px solid var(--oceano);
+    border-radius: 9px;
+    color: var(--oceano);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.link-botao:hover {
+    background: #e6f1f3;
+}
+
+.form-resumo select {
+    width: 100%;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid #829da8;
+    border-radius: 9px;
+    background: white;
+    color: var(--texto);
+    font: inherit;
+}
+
+.resultado-resumo {
+    margin-top: 24px;
+}
+.cabecalho-registros {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.cabecalho-registros h2 {
+    margin: 0;
+}
+
+.cabecalho-registros .link-botao {
+    margin-bottom: 0;
+    white-space: nowrap;
 }

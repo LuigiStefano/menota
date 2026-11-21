@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.time.LocalDate;
 
 @Controller
@@ -26,7 +25,11 @@ public class NotaController {
             Authentication autenticacao,
             Model model
     ) {
-        model.addAttribute("notas", service.listar(autenticacao.getName()));
+        model.addAttribute(
+                "notas",
+                service.listar(autenticacao.getName())
+        );
+
         model.addAttribute("email", autenticacao.getName());
         model.addAttribute("hoje", LocalDate.now());
 
