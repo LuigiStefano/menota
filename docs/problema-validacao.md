@@ -48,17 +48,17 @@
 | Data e perfil | Hipótese | Evidência observada | Decisão |
 | :--- | :--- | :--- | :--- |
 | 22/11/2026 — Terapeuta, perfil anônimo | Consultar registros ou um resumo por período ajuda a retomar assuntos durante a sessão. | A terapeuta comentou que o paciente pode escolher guardar certas informações para si e ter dificuldade de contar, em detalhes, situações que viveu. Em momentos de silêncio durante a sessão, ela vê utilidade em ter à mão os assuntos discutidos em encontros anteriores. Também considerou que o app poderia servir para anotações quando o paciente prefere que o profissional evite usar caderno ou agenda de papel durante a consulta. Para ela, liberar o acesso deve ser sempre opcional. Quando os dois já combinaram usar o app juntos, porém, ela vê pouca utilidade em ter de liberar ou bloquear o acesso. A conversa avaliou a proposta, e a utilidade do resumo por IA ficou em aberto. | Para discussão da equipe: deixar explícito que compartilhar é opcional e avaliar como simplificar a autorização. Considerar um espaço para anotações de sessão em uma próxima versão. |
-| Coleta pendente — Segundo profissional de psicologia ou psiquiatria | O controle do acesso pelo paciente e a ausência de diagnósticos pela IA influenciam a confiança no app. | Entrevista pendente. | A definir após a conversa. |
-| Coleta pendente — Estudante universitário(a) em acompanhamento terapêutico | Registrar acontecimentos perto do momento em que ocorrem ajuda a lembrar o que se queria conversar na próxima consulta. | Entrevista pendente. | A definir após a conversa. |
-| Coleta pendente — Outro(a) estudante universitário(a) em acompanhamento terapêutico | O paciente prefere escolher se e quando o profissional pode consultar seus relatos. | Entrevista pendente. | A definir após a conversa. |
+| Coleta pendente — Segundo profissional de psicologia ou psiquiatria, perfil anônimo | O controle do acesso pelo paciente e a ausência de diagnósticos pela IA influenciam a confiança no app. | Entrevista pendente. | A definir após a conversa. |
+| Coleta pendente — Estudante universitário(a) em acompanhamento terapêutico, perfil anônimo | Registrar acontecimentos perto do momento em que ocorrem ajuda a lembrar o que se queria conversar na próxima consulta. | Entrevista pendente. | A definir após a conversa. |
+| Coleta pendente — Outro(a) estudante universitário(a) em acompanhamento terapêutico, perfil anônimo | O paciente prefere escolher se e quando o profissional pode consultar seus relatos. | Entrevista pendente. | A definir após a conversa. |
 
-**Cenários fictícios para orientar as próximas conversas**
+**Exemplos de respostas possíveis para orientar as próximas conversas**
 
-| Perfil simulado | Exemplo fictício de resposta |
+| Perfil | Exemplo de resposta possível |
 | :--- | :--- |
-| Segundo profissional | “Eu usaria o resumo pra chegar na sessão com uma ideia do que rolou na semana. Se o resumo disser que algo aconteceu várias vezes, eu ia querer conferir nas anotações. Diagnóstico é coisa da consulta.” |
-| Estudante 1 | “Em semana de prova, eu penso ‘vou falar disso na terapia’ e, quando chego lá, lembro só por cima. Se der pra anotar rapidinho no ônibus, eu acho que usaria.” |
-| Estudante 2 | “Tem coisa que eu escreveria só pra organizar a cabeça. Se eu liberar o acesso, queria entender se a terapeuta vai ver tudo o que eu já escrevi ou só o que eu escolher compartilhar.” |
+| Segundo profissional, perfil anônimo | “Eu usaria o resumo pra chegar na sessão com uma ideia do que rolou na semana. Se o resumo disser que algo aconteceu várias vezes, eu ia querer conferir nas anotações. Diagnóstico é coisa da consulta.” |
+| Estudante 1, perfil anônimo | “Em semana de prova, eu penso ‘vou falar disso na terapia’ e, quando chego lá, lembro só por cima. Se der pra anotar rapidinho no ônibus, eu acho que usaria.” |
+| Estudante 2, perfil anônimo | “Tem coisa que eu escreveria só pra organizar a cabeça. Se eu liberar o acesso, queria entender se a terapeuta vai ver tudo o que eu já escrevi ou só o que eu escolher compartilhar.” |
 
 **Síntese dos aprendizados:**  
 A literatura aponta que o intervalo entre consultas e a dificuldade de lembrar ou verbalizar experiências podem deixar assuntos importantes de fora da sessão. A conversa com a terapeuta trouxe dois usos possíveis dentro da consulta: retomar temas de sessões anteriores e registrar assuntos quando o paciente prefere que o profissional evite usar papel. Também levantou uma questão para os próximos testes: como manter o compartilhamento opcional com o mínimo de etapas para quem decide usar o app em conjunto? A terapeuta sugeriu ainda avaliar, em uma versão futura, uma animação de respiração guiada no ritmo 4–7–8 para momentos de crise.
