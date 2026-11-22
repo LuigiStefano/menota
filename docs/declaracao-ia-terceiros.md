@@ -62,7 +62,7 @@ Declaramos que as informações acima são completas e verdadeiras; que revisamo
 | Nome completo | Assinatura ou registro de ciência |
 | :--- | :--- |
 | Filipe Ribeiro Marques | `[Ciente — __/__/2026]` |
-| Luigi Stefano Vianna de Araújo Darzé | `[Ciente — __/__/2026]` |
+| Luigi Stefano Vianna de Araújo Darzé | `Ciente — 22/11/2026` |
 | Mikael Souza Barbosa | `[Ciente — __/__/2026]` |
 | Robert Wagner Lima Ramos Junior | `Ciente — 21/11/2026` |
 | Victor Amadeu Sant Anna de Medeiros | `Ciente — 21/11/2026` |
