@@ -43,17 +43,25 @@
 
 ### 2. Evidências primárias — conversas e percepções (perfis anonimizados)
 
-> *Nota ética:* Todos os relatos abaixo referem-se exclusivamente à percepção sobre a proposta e o fluxo de uso em contexto acadêmico, sem coleta de nomes reais, prontuários ou conteúdos clínicos pessoais.
+> *Nota ética:* A terapeuta autorizou o uso anônimo de sua resposta para o trabalho. A conversa tratou da proposta do MeNota, sem coleta de nomes, prontuários ou relatos clínicos pessoais.
 
 | Data e perfil | Hipótese | Evidência observada | Decisão |
 | :--- | :--- | :--- | :--- |
-| `[DD/11/2026 — Profissional de psicologia, perfil anônimo]` | O resumo por período ajuda a ganhar contexto em sessões curtas sem substituir o atendimento. | `[Preencher com o que foi dito na conversa — incluir também ressalvas éticas ou críticas apontadas]` | `[Preencher decisão tomada pela equipe]` |
-| `[DD/11/2026 — Profissional de psiquiatria/psicologia, perfil anônimo]` | O controle de autorização pelo paciente e a ausência de diagnósticos pela IA são condições essenciais de confiança. | `[Preencher com o que foi dito na conversa]` | `[Preencher decisão tomada pela equipe]` |
-| `[DD/11/2026 — Estudante universitário(a) em acompanhamento terapêutico, perfil anônimo]` | O esquecimento e a dificuldade de verbalizar entre consultas ocorrem na prática e o diário com resumo ajudaria. | `[Preencher com o que foi dito na conversa]` | `[Preencher decisão tomada pela equipe]` |
-| `[DD/11/2026 — Estudante universitário(a) em acompanhamento terapêutico, perfil anônimo]` | O paciente prefere controlar se e quando o profissional acessa os relatos. | `[Preencher com o que foi dito na conversa]` | `[Preencher decisão tomada pela equipe]` |
+| 22/11/2026 — Terapeuta, perfil anônimo | Consultar registros ou um resumo por período ajuda a retomar assuntos durante a sessão. | A terapeuta comentou que o paciente pode escolher guardar certas informações para si e ter dificuldade de contar, em detalhes, situações que viveu. Em momentos de silêncio durante a sessão, ela vê utilidade em ter à mão os assuntos discutidos em encontros anteriores. Também considerou que o app poderia servir para anotações quando o paciente prefere que o profissional evite usar caderno ou agenda de papel durante a consulta. Para ela, liberar o acesso deve ser sempre opcional. Quando os dois já combinaram usar o app juntos, porém, ela vê pouca utilidade em ter de liberar ou bloquear o acesso. A conversa avaliou a proposta, e a utilidade do resumo por IA ficou em aberto. | Para discussão da equipe: deixar explícito que compartilhar é opcional e avaliar como simplificar a autorização. Considerar um espaço para anotações de sessão em uma próxima versão. |
+| Coleta pendente — Segundo profissional de psicologia ou psiquiatria | O controle do acesso pelo paciente e a ausência de diagnósticos pela IA influenciam a confiança no app. | Entrevista pendente. | A definir após a conversa. |
+| Coleta pendente — Estudante universitário(a) em acompanhamento terapêutico | Registrar acontecimentos perto do momento em que ocorrem ajuda a lembrar o que se queria conversar na próxima consulta. | Entrevista pendente. | A definir após a conversa. |
+| Coleta pendente — Outro(a) estudante universitário(a) em acompanhamento terapêutico | O paciente prefere escolher se e quando o profissional pode consultar seus relatos. | Entrevista pendente. | A definir após a conversa. |
+
+**Cenários fictícios para orientar as próximas conversas**
+
+| Perfil simulado | Exemplo fictício de resposta |
+| :--- | :--- |
+| Segundo profissional | “Eu usaria o resumo pra chegar na sessão com uma ideia do que rolou na semana. Se o resumo disser que algo aconteceu várias vezes, eu ia querer conferir nas anotações. Diagnóstico é coisa da consulta.” |
+| Estudante 1 | “Em semana de prova, eu penso ‘vou falar disso na terapia’ e, quando chego lá, lembro só por cima. Se der pra anotar rapidinho no ônibus, eu acho que usaria.” |
+| Estudante 2 | “Tem coisa que eu escreveria só pra organizar a cabeça. Se eu liberar o acesso, queria entender se a terapeuta vai ver tudo o que eu já escrevi ou só o que eu escolher compartilhar.” |
 
 **Síntese dos aprendizados:**  
-As evidências da literatura confirmaram que o problema central não é a falta de um aplicativo genérico, mas a lacuna entre sessões espaçadas (frequentemente quinzenais ou mensais por custo, agenda e filas em serviços universitários) somada ao viés de memória e à barreira emocional para verbalizar vivências em consultas curtas. Também ficou evidente que a IA não pode assumir papel prescritivo ou diagnóstico, devendo restringir-se à síntese fiel dos relatos, e que a privacidade com controle explícito do paciente é inegociável. `[Complementar em 2 linhas após inserir os relatos primários coletados pelo Robert.]`
+A literatura aponta que o intervalo entre consultas e a dificuldade de lembrar ou verbalizar experiências podem deixar assuntos importantes de fora da sessão. A conversa com a terapeuta trouxe dois usos possíveis dentro da consulta: retomar temas de sessões anteriores e registrar assuntos quando o paciente prefere que o profissional evite usar papel. Também levantou uma questão para os próximos testes: como manter o compartilhamento opcional com o mínimo de etapas para quem decide usar o app em conjunto? A terapeuta sugeriu ainda avaliar, em uma versão futura, uma animação de respiração guiada no ritmo 4–7–8 para momentos de crise.
 
 **Mudanças realizadas no problema ou na solução:**
 1. **Recorte de períodos (7 e 30 dias):** Definido diretamente em resposta aos intervalos semanais, quinzenais e mensais observados na prática clínica.
