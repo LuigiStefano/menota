@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="csrf-token" th:content="${_csrf.token}"><meta name="csrf-header" th:content="${_csrf.headerName}"><meta name="usuario" th:content="${login}">
+  <title>Compartilhar · MeNota</title>
+  <link rel="stylesheet" th:href="@{/css/diario.css}"><script th:src="@{/js/acompanhamento.js}" defer></script>
+<link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}"><link rel="preload" th:href="@{/fonts/Caveat-Variable.ttf}" as="font" type="font/ttf" crossorigin><meta name="theme-color" content="#225D70"><link rel="stylesheet" th:href="@{/css/mobile.css}"><script th:src="@{/js/mobile.js}" defer></script></head>
+<body class="patient-page" data-area="paciente">
+<a class="skip-link" href="#profissional">Ir para autorizar acesso</a>
+<header class="app-header"><a class="brand" th:href="@{/}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <div class="header-actions"><a th:href="@{/}" class="nav-link">Meu diário</a><a th:href="@{/resumos}" class="nav-link">Acompanhamento</a><a th:href="@{/compartilhamento}" class="nav-link" aria-current="page">Compartilhar</a><form th:action="@{/logout}" method="post"><span class="username" th:text="${login}"></span><button type="submit" class="quiet">Sair</button></form></div>
+</header>
+<main class="summaries-workspace">
+  <section class="summary-intro"><span class="eyebrow">Seu acompanhamento</span><h1>Você escolhe quem tem acesso.</h1><p>Autorize o profissional que acompanha você a consultar seus registros e análises.</p></section>
+  <div class="summary-grid">
+    <details class="summary-settings mobile-panel" data-mobile-panel open><summary class="mobile-panel-toggle">Autorizar profissional</summary><div class="panel-content"><h2>Autorizar profissional</h2>
+      <form id="acesso-form">
+        <label for="profissional">Usuário do profissional</label><input id="profissional" name="profissional" required pattern="[a-z0-9_]{3,30}" maxlength="30" autocomplete="off" aria-describedby="profissional-ajuda">
+        <p id="profissional-ajuda" class="help-text">Peça ao seu profissional o usuário da conta dele e confira antes de autorizar.</p>
+        <label class="checkbox-label"><input id="autorizo" type="checkbox" required><span>Autorizo esta conta a ler todos os meus registros e análises, inclusive os futuros, até eu remover o acesso.</span></label>
+        <button class="primary full" id="autorizar" type="submit" disabled>Autorizar acesso</button>
+      </form>
+      <p class="help-text">O profissional não pode editar seu diário. Remover o acesso impede novas consultas, mas não apaga o que ele já leu ou copiou.</p>
+    </div></details>
+    <section class="summary-results"><h2>Quem pode acompanhar</h2><p id="acesso-estado" role="status" aria-live="polite">Carregando…</p><ul id="acessos" class="access-list"></ul></section>
+  </div>
+  <dialog id="revogar-dialogo" aria-labelledby="revogar-titulo"><form method="dialog"><h2 id="revogar-titulo">Remover acesso?</h2><p id="revogar-texto"></p><div class="dialog-actions"><button value="cancelar" class="quiet">Cancelar</button><button value="remover" class="primary">Remover acesso</button></div></form></dialog>
+</main><footer class="app-footer">MeNota</footer>
+<nav class="mobile-nav" aria-label="Navegação principal"><a th:href="@{/}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5zM8 2v4m8-4v4M8 10h8M8 14h5"/></svg><span>Agenda</span></a><a th:href="@{/resumos}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V5m0 15h17M8 15l4-5 4 2 5-7"/></svg><span>Emoções</span></a><a th:href="@{/compartilhamento}" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-6 9v-2a6 6 0 0 1 12 0v2m3-14a3 3 0 0 1 0 6m0 3a4 4 0 0 1 3 4"/></svg><span>Acesso</span></a></nav></body></html>

@@ -1,6 +1,7 @@
 package br.edu.pooalab.diario.web;
 
 import br.edu.pooalab.diario.registro.RegistroService;
+import br.edu.pooalab.diario.registro.BemEstar;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -10,6 +11,8 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
@@ -31,7 +34,15 @@ public class RegistroController {
 
     public record Escrita(@NotNull LocalDate data,
                           @NotBlank @Size(max = 20000) String texto,
-                          @NotNull @Min(-1) Long versao) {}
+                          @NotNull @Min(-1) Long versao, BemEstar bemEstar) {}
+
+    @GetMapping("/registros/datas")
+    List<LocalDate> datas(Principal usuario, @RequestParam String mes) {
+        try { return registros.datas(usuario.getName(), YearMonth.parse(mes)); }
+        catch (java.time.format.DateTimeParseException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Escolha um mês válido.");
+        }
+    }
 
     @GetMapping("/registros")
     RegistroService.Pagina buscar(Principal usuario,
@@ -41,7 +52,7 @@ public class RegistroController {
 
     @PutMapping("/registros")
     RegistroService.Pagina salvar(Principal usuario, @Valid @RequestBody Escrita escrita) {
-        return registros.salvar(usuario.getName(), escrita.data(), escrita.texto(), escrita.versao());
+        return registros.salvar(usuario.getName(), escrita.data(), escrita.texto(), escrita.versao(), escrita.bemEstar());
     }
 
     @DeleteMapping("/registros")

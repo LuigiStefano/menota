@@ -16,6 +16,8 @@ public class Registro {
     private LocalDate data;
     @Column(name = "texto_cifrado", nullable = false, columnDefinition = "text")
     private String textoCifrado;
+    @Column(name = "bem_estar_cifrado", columnDefinition = "text")
+    private String bemEstarCifrado;
     @Version
     private Long versao;
 
@@ -26,4 +28,6 @@ public class Registro {
     public String getTextoCifrado() { return textoCifrado; }
     public void setTextoCifrado(String textoCifrado) { this.textoCifrado = textoCifrado; }
     public Long getVersao() { return versao; }
+    public String getBemEstarCifrado() { return bemEstarCifrado; }
+    public void setBemEstarCifrado(String valor) { this.bemEstarCifrado = valor; }
 }

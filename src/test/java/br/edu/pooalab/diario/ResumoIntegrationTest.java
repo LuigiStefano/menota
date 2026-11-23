@@ -40,6 +40,7 @@ class ResumoIntegrationTest {
     static final LocalDate DIA = LocalDate.of(2026, 10, 27);
 
     @BeforeEach void preparar() {
+        when(sumarizador.configuracao()).thenReturn(new Sumarizador.Configuracao("modelo-teste", "configuracao-teste"));
         usuarios.cadastrar(A, "SenhaFicticia123!"); usuarios.cadastrar(B, "SenhaFicticia123!");
         when(sumarizador.configurado()).thenReturn(true);
         when(sumarizador.resumir(anyList())).thenReturn(new Sumarizador.Resultado("Resumo fictício: concluiu uma atividade e relatou satisfação.", "modelo-de-teste"));
@@ -47,7 +48,7 @@ class ResumoIntegrationTest {
     void escrever(String login, LocalDate dia, String texto) { registros.salvar(login,dia,texto,-1); }
     void exemplo() { escrever(A,DIA,"Relato fictício: concluí uma atividade e fiquei satisfeito com o resultado."); }
     ResultActions gerar(String login, String inicio, String fim, boolean consentimento) throws Exception {
-        return mvc.perform(post("/api/resumos").with(user(login)).with(csrf()).header("X-Diario-Usuario",login)
+        return mvc.perform(post("/api/resumos").with(user(login).roles("PACIENTE")).with(csrf()).header("X-Diario-Usuario",login)
             .contentType("application/json").content(json.writeValueAsString(Map.of("inicio",inicio,"fim",fim,"confirmoEnvioFicticio",consentimento))));
     }
     String gerarId() throws Exception {
@@ -57,12 +58,12 @@ class ResumoIntegrationTest {
 
     @Test void geraConsultaECifraResumo() throws Exception {
         exemplo(); String id=gerarId();
-        mvc.perform(get("/api/resumos/"+id).with(user(A)).header("X-Diario-Usuario",A)).andExpect(status().isOk())
+        mvc.perform(get("/api/resumos/"+id).with(user(A).roles("PACIENTE")).header("X-Diario-Usuario",A)).andExpect(status().isOk())
             .andExpect(jsonPath("$.datasUtilizadas[0]").value(DIA.toString())).andExpect(jsonPath("$.modelo").value("modelo-de-teste"));
         String cifrado=banco.queryForObject("select texto_cifrado from resumos",String.class);
         assertThat(cifrado).doesNotContain("Resumo fictício");
         assertThat(criptografia.decifrar(cifrado)).contains("concluiu uma atividade");
-        mvc.perform(get("/api/resumos").with(user(A)).header("X-Diario-Usuario",A)).andExpect(jsonPath("$.length()").value(1));
+        mvc.perform(get("/api/resumos").with(user(A).roles("PACIENTE")).header("X-Diario-Usuario",A)).andExpect(jsonPath("$.length()").value(1));
     }
     @Test void reutilizaSemNovaChamada() throws Exception {
         exemplo(); String id=gerarId();
@@ -79,13 +80,13 @@ class ResumoIntegrationTest {
     }
     @Test void outroUsuarioNaoConsultaResumoMesmoAlterandoUuid() throws Exception {
         exemplo(); String id=gerarId();
-        mvc.perform(get("/api/resumos/"+id).with(user(B)).header("X-Diario-Usuario",B)).andExpect(status().isNotFound());
-        mvc.perform(get("/api/resumos").with(user(B)).header("X-Diario-Usuario",B)).andExpect(jsonPath("$.length()").value(0));
-        mvc.perform(get("/api/resumos/"+id).with(user(B)).header("X-Diario-Usuario",A)).andExpect(status().isConflict());
+        mvc.perform(get("/api/resumos/"+id).with(user(B).roles("PACIENTE")).header("X-Diario-Usuario",B)).andExpect(status().isNotFound());
+        mvc.perform(get("/api/resumos").with(user(B).roles("PACIENTE")).header("X-Diario-Usuario",B)).andExpect(jsonPath("$.length()").value(0));
+        mvc.perform(get("/api/resumos/"+id).with(user(B).roles("PACIENTE")).header("X-Diario-Usuario",A)).andExpect(status().isConflict());
     }
     @Test void rejeitaSemConfirmacaoOuCsrf() throws Exception {
         exemplo(); gerar(A,DIA.toString(),DIA.toString(),false).andExpect(status().isBadRequest());
-        mvc.perform(post("/api/resumos").with(user(A)).header("X-Diario-Usuario",A)).andExpect(status().isForbidden());
+        mvc.perform(post("/api/resumos").with(user(A).roles("PACIENTE")).header("X-Diario-Usuario",A)).andExpect(status().isForbidden());
         mvc.perform(get("/api/resumos")).andExpect(status().isUnauthorized());
         verify(sumarizador,never()).resumir(anyList());
     }

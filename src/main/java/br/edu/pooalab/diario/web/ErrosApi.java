@@ -8,8 +8,12 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import java.util.Map;
 
-@RestControllerAdvice(assignableTypes = {RegistroController.class, ResumoController.class})
+@RestControllerAdvice(assignableTypes = {RegistroController.class, ResumoController.class, AcompanhamentoController.class})
 public class ErrosApi {
+    @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+    ResponseEntity<Map<String, String>> metodoInvalido() {
+        return ResponseEntity.status(405).body(Map.of("erro", "Esta operação não está disponível."));
+    }
     @ExceptionHandler(ResponseStatusException.class)
     ResponseEntity<Map<String, String>> conflito(ResponseStatusException erro) {
         return ResponseEntity.status(erro.getStatusCode()).body(Map.of("erro", erro.getReason()));
@@ -18,7 +22,7 @@ public class ErrosApi {
     @ExceptionHandler({MethodArgumentNotValidException.class, HttpMessageNotReadableException.class,
                       MethodArgumentTypeMismatchException.class})
     ResponseEntity<Map<String, String>> invalido() {
-        return ResponseEntity.badRequest().body(Map.of("erro", "Confira os campos, as datas e a confirmação solicitada. Registros aceitam de 1 a 20.000 caracteres."));
+        return ResponseEntity.badRequest().body(Map.of("erro", "Confira os campos e as confirmações solicitadas."));
     }
 
     @ExceptionHandler(Exception.class)

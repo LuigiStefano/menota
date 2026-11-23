@@ -1,7 +1,8 @@
 param(
     [string]$JavaExe,
     [string]$PgBin,
-    [switch]$PararBanco
+    [switch]$PararBanco,
+    [switch]$Celular
 )
 $ErrorActionPreference = 'Stop'
 $projectRoot = $PSScriptRoot
@@ -116,5 +117,16 @@ if (Test-Path -LiteralPath $apiKeyPath) {
         }
     } catch { throw 'Nao foi possivel abrir a chave Gemini. Execute configurar-gemini.ps1 com este usuario do Windows.' }
 }
-Write-Host 'Abra http://127.0.0.1:8080 e crie uma conta fictícia. Ctrl+C encerra a aplicação.'
+$portaHttp = if ($env:PORT) { $env:PORT } else { '8080' }
+$env:SERVER_ADDRESS = if ($Celular) { '0.0.0.0' } else { '127.0.0.1' }
+if ($Celular) {
+    Write-Host 'No celular, conectado ao mesmo Wi-Fi, abra um dos enderecos abaixo:'
+    Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway } |
+        ForEach-Object { $_.IPv4Address.IPAddress } |
+        Where-Object { $_ -and $_ -notlike '169.254.*' } |
+        ForEach-Object { Write-Host ("http://" + $_ + ":" + $portaHttp) }
+    Write-Host 'Use este modo somente na sua rede local com dados ficticios. Ctrl+C encerra a aplicacao.'
+} else {
+    Write-Host "Abra http://127.0.0.1:$portaHttp e crie uma conta fictícia. Ctrl+C encerra a aplicação."
+}
 & $JavaExe -jar $jarPath

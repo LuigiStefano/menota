@@ -16,14 +16,15 @@ public class SegurancaConfig {
     @Bean
     UserDetailsService userDetailsService(UsuarioRepository usuarios) {
         return login -> usuarios.findByLogin(login)
-                .map(u -> User.withUsername(u.getLogin()).password(u.getSenhaHash()).roles("USUARIO").build())
+                .map(u -> User.withUsername(u.getLogin()).password(u.getSenhaHash()).roles(u.getPerfil()).build())
                 .orElseThrow(() -> new UsernameNotFoundException("Credenciais inválidas"));
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/cadastro", "/css/**", "/js/**", "/error").permitAll()
+                .requestMatchers("/login", "/cadastro", "/css/**", "/js/**", "/images/**", "/fonts/**", "/error").permitAll()
+                .requestMatchers("/api/registros", "/api/registros/**", "/api/resumos", "/api/resumos/**").hasRole("PACIENTE")
                 .anyRequest().authenticated())
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
             .logout(logout -> logout.logoutSuccessUrl("/login?saiu"))

@@ -1,3 +1,17 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Não foi possível continuar</title><link rel="stylesheet" th:href="@{/css/diario.css}"></head>
-<body class="auth-page"><main class="auth-card"><span class="eyebrow">MENOTA</span><h1>Vamos tentar<br>novamente?</h1><p>Não foi possível concluir esta ação. Se estava escrevendo, volte à aba do diário para preservar o texto.</p><a th:href="@{/}">Abrir meu diário</a></main></body></html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"><title>Não foi possível continuar · MeNota</title><link rel="stylesheet" th:href="@{/css/diario.css}"><link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}"><link rel="preload" th:href="@{/fonts/Caveat-Variable.ttf}" as="font" type="font/ttf" crossorigin><meta name="theme-color" content="#225D70"><link rel="stylesheet" th:href="@{/css/mobile.css}"><script th:src="@{/js/mobile.js}" defer></script></head>
+<body class="auth-page"><aside class="auth-welcome" aria-label="Sobre o diário">
+  <a class="brand" th:href="@{/}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <h2>Um momento para se perceber.</h2>
+  <p>Escreva o que sente. Volte às suas palavras. Perceba-se aos poucos.</p>
+  <svg class="journal-art" viewBox="0 0 360 180" fill="none" aria-hidden="true">
+    <rect x="35" y="15" width="228" height="145" rx="16" fill="#dcecf0"/>
+    <rect x="65" y="2" width="228" height="145" rx="16" fill="white" stroke="#a7c5ce"/>
+    <path d="M91 31h90M91 46h170M91 60h136" stroke="#aac0c8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M92 111c26 0 30-31 57-31s28 42 53 31 27-29 60-29" stroke="#225D70" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="149" cy="80" r="6" fill="#225D70"/><circle cx="202" cy="111" r="6" fill="#225D70"/>
+    <circle cx="278" cy="136" r="29" fill="#f5c9c2"/>
+    <path d="m266 136 8 8 16-17" stroke="#225D70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</aside>
+<main class="auth-card"><span class="eyebrow">MeNota</span><h1>Não foi possível continuar</h1><p>Tente novamente. Se estava escrevendo, volte à aba do diário.</p><a th:href="@{/}">Abrir meu diário</a></main></body></html>

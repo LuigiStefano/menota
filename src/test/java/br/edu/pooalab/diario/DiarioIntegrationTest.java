@@ -38,13 +38,13 @@ class DiarioIntegrationTest {
     }
 
     private ResultActions salvar(String login, String data, String texto, long versao) throws Exception {
-        return mvc.perform(put("/api/registros").with(user(login)).with(csrf())
+        return mvc.perform(put("/api/registros").with(user(login).roles("PACIENTE")).with(csrf())
             .header("X-Diario-Usuario", login).contentType("application/json")
             .content(json.writeValueAsString(Map.of("data", data, "texto", texto, "versao", versao))));
     }
 
     private ResultActions buscar(String login, String data) throws Exception {
-        return mvc.perform(get("/api/registros").with(user(login))
+        return mvc.perform(get("/api/registros").with(user(login).roles("PACIENTE"))
             .header("X-Diario-Usuario", login).param("data", data));
     }
 
@@ -57,9 +57,19 @@ class DiarioIntegrationTest {
             .andExpect(authenticated().withUsername("novo_aluno")).andExpect(redirectedUrl("/"))
             .andReturn();
         var sessao = (MockHttpSession) resultado.getRequest().getSession(false);
-        mvc.perform(get("/").session(sessao)).andExpect(status().isOk()).andExpect(content().string(org.hamcrest.Matchers.containsString("O que você gostaria de registrar?")));
+        mvc.perform(get("/").session(sessao)).andExpect(status().isOk()).andExpect(content().string(org.hamcrest.Matchers.containsString("Como foi seu dia?")));
         mvc.perform(post("/logout").session(sessao).with(csrf())).andExpect(unauthenticated());
         assertThat(sessao.isInvalid()).isTrue();
+    }
+
+    @Test void marcaEFontesPublicasMantemApiProtegida() throws Exception {
+        mvc.perform(get("/images/menota-logo.png")).andExpect(status().isOk())
+            .andExpect(content().contentType("image/png"));
+        mvc.perform(get("/images/menota-icon.svg")).andExpect(status().isOk());
+        mvc.perform(get("/fonts/Caveat-Variable.ttf")).andExpect(status().isOk());
+        mvc.perform(get("/fonts/Nunito-Variable.ttf")).andExpect(status().isOk());
+        mvc.perform(get("/api/registros").param("data", "2026-10-29"))
+            .andExpect(status().isUnauthorized());
     }
 
     @Test void rejeitaSenhaIncorreta() throws Exception {
@@ -70,7 +80,7 @@ class DiarioIntegrationTest {
     @Test void bloqueiaAcessoAnonimoECsrf() throws Exception {
         mvc.perform(get("/")).andExpect(status().is3xxRedirection());
         mvc.perform(get("/api/registros").param("data", "2026-10-27")).andExpect(status().isUnauthorized());
-        mvc.perform(put("/api/registros").with(user("aluno_a"))).andExpect(status().isForbidden());
+        mvc.perform(put("/api/registros").with(user("aluno_a").roles("PACIENTE"))).andExpect(status().isForbidden());
     }
 
     @Test void criaEditaRecuperaEExclui() throws Exception {
@@ -78,25 +88,25 @@ class DiarioIntegrationTest {
         buscar("aluno_a", "2026-10-27").andExpect(jsonPath("$.texto").value("Hoje apresentei meu trabalho fictício."));
         salvar("aluno_a", "2026-10-27", "Editei meu relato.", 0).andExpect(status().isOk()).andExpect(jsonPath("$.versao").value(1));
         buscar("aluno_a", "2026-10-27").andExpect(jsonPath("$.texto").value("Editei meu relato."));
-        mvc.perform(delete("/api/registros").with(user("aluno_a")).with(csrf()).header("X-Diario-Usuario", "aluno_a")
+        mvc.perform(delete("/api/registros").with(user("aluno_a").roles("PACIENTE")).with(csrf()).header("X-Diario-Usuario", "aluno_a")
             .param("data", "2026-10-27").param("versao", "1")).andExpect(status().isNoContent());
         buscar("aluno_a", "2026-10-27").andExpect(jsonPath("$.versao").value(-1)).andExpect(jsonPath("$.texto").value(""));
     }
 
     @Test void isolaUsuariosMesmoComParametrosAdulterados() throws Exception {
         salvar("aluno_a", "2026-10-27", "Relato privado fictício de A.", -1).andExpect(status().isOk());
-        mvc.perform(get("/api/registros").with(user("aluno_b")).header("X-Diario-Usuario", "aluno_b")
+        mvc.perform(get("/api/registros").with(user("aluno_b").roles("PACIENTE")).header("X-Diario-Usuario", "aluno_b")
             .param("data", "2026-10-27").param("usuario", "aluno_a").param("id", "1"))
             .andExpect(jsonPath("$.texto").value(""));
         salvar("aluno_b", "2026-10-27", "Registro de B.", -1).andExpect(status().isOk());
-        mvc.perform(delete("/api/registros").with(user("aluno_b")).with(csrf()).header("X-Diario-Usuario", "aluno_b")
+        mvc.perform(delete("/api/registros").with(user("aluno_b").roles("PACIENTE")).with(csrf()).header("X-Diario-Usuario", "aluno_b")
             .param("data", "2026-10-27").param("versao", "0").param("usuario", "aluno_a").param("id", "1"))
             .andExpect(status().isNoContent());
         buscar("aluno_a", "2026-10-27").andExpect(jsonPath("$.texto").value("Relato privado fictício de A."));
     }
 
     @Test void impedeEnviarRascunhoAContaTrocadaEmOutraAba() throws Exception {
-        mvc.perform(put("/api/registros").with(user("aluno_b")).with(csrf()).header("X-Diario-Usuario", "aluno_a")
+        mvc.perform(put("/api/registros").with(user("aluno_b").roles("PACIENTE")).with(csrf()).header("X-Diario-Usuario", "aluno_a")
             .contentType("application/json").content("{\"data\":\"2026-10-27\",\"texto\":\"privado\",\"versao\":-1}"))
             .andExpect(status().isConflict());
         buscar("aluno_b", "2026-10-27").andExpect(jsonPath("$.texto").value(""));
@@ -115,7 +125,7 @@ class DiarioIntegrationTest {
         salvar("aluno_a", "2026-10-27", "Primeira versão.", -1).andExpect(status().isOk());
         salvar("aluno_a", "2026-10-27", "Versão atual.", 0).andExpect(status().isOk());
         salvar("aluno_a", "2026-10-27", "Versão atrasada.", 0).andExpect(status().isConflict());
-        mvc.perform(delete("/api/registros").with(user("aluno_a")).with(csrf()).header("X-Diario-Usuario", "aluno_a")
+        mvc.perform(delete("/api/registros").with(user("aluno_a").roles("PACIENTE")).with(csrf()).header("X-Diario-Usuario", "aluno_a")
             .param("data", "2026-10-27").param("versao", "0")).andExpect(status().isConflict());
         buscar("aluno_a", "2026-10-27").andExpect(jsonPath("$.texto").value("Versão atual."));
     }

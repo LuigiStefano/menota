@@ -23,11 +23,13 @@
 | **Alternativa atual** | Relatos feitos apenas de memória durante a sessão ou anotações soltas e irregulares em cadernos físicos e aplicativos genéricos de notas, difíceis de revisar por período e sem controle de compartilhamento. |
 | **Hipótese crítica** | Estudantes adotam uma agenda reflexiva simples para registrar relatos no dia a dia, consideram úteis os resumos descritivos por período (7 ou 30 dias, sem diagnósticos ou recomendações clínicas) para sua autopercepção, e aceitam compartilhar esse material com o profissional mediante autorização explícita e revogável. |
 | **Evidência** | Combinação de levantamento bibliográfico em cinco estudos empíricos/clínicos (incluindo ACM CHI, *Australian Psychologist*, *Annual Review of Clinical Psychology*, *Research in Psychotherapy* e relato brasileiro em clínica-escola universitária) com relatos anonimizados coletados junto a estudantes em terapia e profissionais de saúde mental. |
-| **Recorte** | MVP web local (`MeNota`) com contas e relatos estritamente fictícios, contemplando: registro diário de anotações com data automática, geração de resumos descritivos de 7 ou 30 dias via Gemini API (sem diagnósticos ou recomendações) e controle de autorização/revogação pelo paciente para consulta de notas e resumos pelo profissional. |
+| **Recorte da versão atual** | MVP web local com contas e relatos fictícios. Inclui agenda por data com autorrelato opcional, análise descritiva de até 31 dias e autorização revogável para consulta profissional. Consulte o [Anexo C](definicao-mvp.md) para os critérios de pronto. |
 
 ---
 
 ## Anexo B — Registro de validação
+
+Este anexo conserva as hipóteses, as conversas e as decisões registradas durante a validação. Os recortes de 7 e 30 dias e as limitações descritas abaixo correspondem à proposta discutida naquele momento. As conversas dão evidências sobre o problema e sobre a proposta. O uso da interface final com o público ainda precisa de observação direta.
 
 **Solução:** MeNota
 

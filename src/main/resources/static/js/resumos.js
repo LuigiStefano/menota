@@ -31,8 +31,12 @@ function mostrarResumo(resumo) {
   document.querySelector('#resultado-texto').textContent=resumo.texto;
   document.querySelector('#resultado-fontes').textContent=resumo.datasUtilizadas.map(dataBr).join(', ');
   document.querySelector('#resultado-data').textContent=new Intl.DateTimeFormat('pt-BR',{dateStyle:'short',timeStyle:'short'}).format(new Date(resumo.criadoEm));
-  document.querySelector('#resultado-modelo').textContent=resumo.modelo;
+  mostrarEmocoes(document.querySelector('#resultado-emocoes'), resumo);
   document.querySelector('#resultado').hidden=false;
+  if (window.matchMedia('(max-width: 760px)').matches) {
+    document.querySelector('.mobile-panel').open=false;
+    document.querySelector('#resultado').scrollIntoView({block:'start'});
+  }
 }
 async function carregarHistorico() {
   const itens = await apiResumo('/api/resumos');
@@ -55,7 +59,7 @@ async function carregarHistorico() {
     });
     li.append(botao); lista.append(li);
   }
-  document.querySelector('#historico-estado').textContent=itens.length ? 'Selecione um período do histórico para consultar.' : 'Você ainda não tem resumos. Comece escolhendo um período.';
+  document.querySelector('#historico-estado').textContent=itens.length ? 'Selecione um resumo para abrir.' : 'Você ainda não tem resumos.';
 }
 async function atualizarResumo() {
   if(gerando) return;
@@ -65,7 +69,7 @@ async function atualizarResumo() {
     configurado=config.configurado;
     gerar.disabled=!configurado;
     document.querySelector('#chave-aviso').hidden=configurado;
-    avisoResumo(configurado ? 'Pronto para gerar. Confira o período antes de enviar.' : 'Geração indisponível até configurar a chave.');
+    avisoResumo(configurado ? 'Escolha o período que deseja analisar.' : 'Geração de resumos indisponível.');
     await carregarHistorico();
   } catch(erro) { avisoResumo(erro.message,true); document.querySelector('#historico-estado').textContent='Não foi possível carregar o histórico. Tente atualizar.'; }
 }
@@ -77,12 +81,12 @@ document.querySelector('#gerar-form').addEventListener('submit',async event=>{
   gerando=true; gerar.disabled=true; inicio.disabled=true; fim.disabled=true;
   document.querySelector('#atualizar').disabled=true;
   document.querySelector('#resultado').hidden=true;
-  avisoResumo('Gerando resumo… Aguarde a confirmação. Isso pode levar alguns segundos.');
+  avisoResumo('Analisando registros…');
   try {
     const resposta=await apiResumo('/api/resumos',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({inicio:inicio.value,fim:fim.value,confirmoEnvioFicticio:document.querySelector('#consentimento').checked})});
     mostrarResumo(resposta.resumo);
-    avisoResumo(resposta.reutilizado ? 'Resumo já existente recuperado. Não foi necessário um novo envio à IA.' : 'Resumo gerado e salvo.');
+    avisoResumo(resposta.reutilizado ? 'Este período já tem um resumo. Ele foi aberto abaixo.' : 'Análise concluída e salva.');
     await carregarHistorico();
   } catch(erro) { avisoResumo(erro.message,true); }
   finally {gerando=false;gerar.disabled=!configurado;inicio.disabled=false;fim.disabled=false;document.querySelector('#atualizar').disabled=false;}

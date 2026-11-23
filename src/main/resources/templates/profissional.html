@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+  <meta name="csrf-token" th:content="${_csrf.token}"><meta name="csrf-header" th:content="${_csrf.headerName}"><meta name="usuario" th:content="${login}">
+  <title>Pacientes · MeNota</title>
+  <link rel="stylesheet" th:href="@{/css/diario.css}"><script th:src="@{/js/analise.js}" defer></script><script th:src="@{/js/acompanhamento.js}" defer></script>
+<link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}"><link rel="preload" th:href="@{/fonts/Caveat-Variable.ttf}" as="font" type="font/ttf" crossorigin><meta name="theme-color" content="#225D70"><link rel="stylesheet" th:href="@{/css/mobile.css}"><script th:src="@{/js/mobile.js}" defer></script></head>
+<body data-area="profissional">
+<a class="skip-link" href="#paciente">Ir para escolher paciente</a>
+<header class="app-header"><a class="brand" th:href="@{/profissional}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <div class="header-actions"><span>Área do profissional</span><form th:action="@{/logout}" method="post"><span class="username" th:text="${login}"></span><button type="submit" class="quiet">Sair</button></form></div>
+</header>
+<main class="summaries-workspace">
+  <section class="summary-intro"><span class="eyebrow">Acompanhamento dos pacientes</span><h1>Um olhar sobre o período.</h1><p>Consulte os relatos e as emoções identificadas nos registros compartilhados com você.</p></section>
+  <section class="summary-results">
+    <form id="consulta-form" class="professional-filters">
+      <div><label for="paciente">Paciente</label><select id="paciente" required disabled><option value="">Carregando…</option></select></div>
+      <div><label for="inicio">De</label><input id="inicio" type="date" required></div>
+      <div><label for="fim">Até</label><input id="fim" type="date" required></div>
+      <button id="consultar" class="primary" type="submit" disabled>Consultar período</button>
+    </form>
+    <details class="professional-help" data-mobile-panel open><summary>Como receber acesso</summary>    <p class="help-text">Seu usuário é <strong th:text="${login}"></strong>. O paciente precisa autorizar essa conta na opção Compartilhar. O cadastro de profissional é autodeclarado, sem verificação de registro profissional.</p></details>
+    <p id="consulta-estado" role="status" aria-live="polite">Carregando pacientes…</p>
+  </section>
+  <section id="painel-paciente" class="professional-panel" hidden>
+    <div class="summary-grid">
+      <section class="summary-settings"><h2>Registros e humor</h2><p class="help-text">Textos originais. Humor e energia são informados pelo paciente, não pela IA.</p><div id="registros-paciente" class="records-list"></div></section>
+      <section class="summary-results"><h2>Análises compartilhadas</h2><p class="help-text">Geradas pelo paciente para os períodos indicados. As emoções são interpretações da IA e precisam de revisão profissional; não são diagnósticos ou medidas clínicas.</p><div id="analises-paciente"></div></section>
+    </div>
+  </section>
+</main><footer class="app-footer">MeNota</footer>
+</body></html>

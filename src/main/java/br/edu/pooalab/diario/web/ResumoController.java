@@ -28,7 +28,7 @@ public class ResumoController {
 
     @GetMapping("/configuracao")
     Map<String, Object> configuracao() {
-        return Map.of("configurado", resumos.configurado(), "modelo", GeminiSumarizador.MODELO,
+        return Map.of("configurado", resumos.configurado(), "modelo", resumos.modelo(),
             "maximoDias", 31, "maximoCaracteres", 24000);
     }
 

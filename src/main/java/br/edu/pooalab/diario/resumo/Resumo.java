@@ -21,6 +21,10 @@ public class Resumo {
     @Column(nullable = false, length = 100) private String configuracao;
     @Column(nullable = false, length = 64) private String assinatura;
 
+    @Column(name = "emocoes_cifradas", columnDefinition = "text") private String emocoesCifradas;
+    public String getEmocoesCifradas() { return emocoesCifradas; }
+    public void setEmocoesCifradas(String valor) { this.emocoesCifradas = valor; }
+
     protected Resumo() {}
     public Resumo(Usuario usuario, LocalDate inicio, LocalDate fim, String textoCifrado,
                   String fontesJson, String modelo, String configuracao, String assinatura) {

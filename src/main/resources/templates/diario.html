@@ -1,45 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="csrf-token" th:content="${_csrf.token}"><meta name="csrf-header" th:content="${_csrf.headerName}">
   <meta name="usuario" th:content="${login}">
   <title>Meu diário · MeNota</title>
   <link rel="stylesheet" th:href="@{/css/diario.css}"><script th:src="@{/js/diario.js}" defer></script>
-</head>
-<body>
+<link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}"><link rel="preload" th:href="@{/fonts/Caveat-Variable.ttf}" as="font" type="font/ttf" crossorigin><meta name="theme-color" content="#225D70"><link rel="stylesheet" th:href="@{/css/mobile.css}"><script th:src="@{/js/mobile.js}" defer></script></head>
+<body class="agenda-page patient-page">
 <a class="skip-link" href="#texto">Ir para a escrita</a>
 <header class="app-header">
-  <a class="brand" th:href="@{/}"><span class="brand-mark" aria-hidden="true">m.</span>MeNota</a>
-  <div class="header-actions"><a th:href="@{/resumos}" class="nav-link">Meus resumos</a><form id="logout" th:action="@{/logout}" method="post"><span class="username" th:text="${login}"></span><button class="quiet" type="submit">Sair</button></form></div>
+  <a class="brand" th:href="@{/}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <div class="header-actions"><a th:href="@{/resumos}" class="nav-link">Acompanhamento</a><a th:href="@{/compartilhamento}" class="nav-link">Compartilhar</a><form id="logout" th:action="@{/logout}" method="post"><span class="username" th:text="${login}"></span><button class="quiet" type="submit">Sair</button></form></div>
 </header>
-<main class="workspace">
+<main class="workspace agenda-book">
+  <div class="agenda-rings" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></div>
   <aside class="sidebar" aria-label="Navegação por datas">
-    <span class="eyebrow">SEU ESPAÇO DE ESCRITA</span>
-    <h1>Uma página<br>de cada vez.</h1>
-    <p>Não precisa ter um assunto.<br>Comece por onde fizer sentido.</p>
+    <span class="agenda-owner">Meu diário</span>
+    <h1>Minha agenda</h1>
+    <p class="agenda-today" id="data-hoje"></p>
+    <details class="agenda-dates" data-mobile-panel open><summary class="agenda-dates-toggle">Calendário</summary><div class="agenda-date-options">
+    <details class="agenda-month" open><summary>Calendário do mês</summary>
+    <div class="month-heading"><button id="mes-anterior" type="button" class="month-arrow" aria-label="Mês anterior" disabled>‹</button><h2 id="mes-agenda">Calendário</h2><button id="mes-proximo" type="button" class="month-arrow" aria-label="Próximo mês" disabled>›</button></div>
+    <div class="week-labels" aria-hidden="true"><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span><span>D</span></div>
+    <div id="calendario" class="agenda-calendar" role="group" aria-label="Dias do mês"></div>
+    <p class="calendar-legend"><span aria-hidden="true"></span>Hoje <span class="note-legend-dot" aria-hidden="true"></span>Com nota</p>
+    <p id="calendario-estado" class="calendar-status" role="status" aria-live="polite"></p>
+    </details>
     <div class="date-picker">
       <label for="data">Escolha uma data</label>
       <input id="data" type="date" required disabled>
-      <div class="date-actions"><button id="anterior" class="quiet" aria-label="Dia anterior" disabled>←</button><button id="hoje" class="quiet" disabled>Hoje</button><button id="proximo" class="quiet" aria-label="Próximo dia" disabled>→</button></div>
+
     </div>
-    <div class="sidebar-note"><strong>Este diário é seu.</strong><p>Não há compartilhamento automático com psicólogos ou com a faculdade.</p><p>Versão acadêmica: use relatos fictícios para experimentar.</p></div>
+    </div></details>
+    <div class="date-actions"><button id="anterior" class="quiet" aria-label="Dia anterior" disabled>←</button><button id="hoje" class="quiet" disabled>Hoje</button><button id="proximo" class="quiet" aria-label="Próximo dia" disabled>→</button></div>
+    <div class="sidebar-note"><p>Você decide quem acompanha seus registros.<a th:href="@{/compartilhamento}">Gerenciar acesso</a></p></div>
   </aside>
   <section class="writing-area" aria-labelledby="titulo-data">
-    <div class="page-heading"><div><span class="eyebrow" id="dia-semana">MEU DIÁRIO</span><h2 id="titulo-data">Abrindo sua página…</h2></div><span class="page-label">ESCRITA LIVRE</span></div>
+    <span class="agenda-ribbon" aria-hidden="true"></span>
+    <div class="page-heading">
+      <time id="carimbo-data" class="date-stamp"><span id="numero-dia">—</span><span id="mes-pagina">Meu diário</span></time>
+      <div class="page-date"><span id="dia-semana">Meu diário</span><h2 id="titulo-data">Abrindo sua página…</h2><span id="marcador-hoje" class="today-badge" hidden>Página de hoje</span></div>
+    </div>
     <noscript><p class="notice error">Ative o JavaScript para consultar e salvar as páginas do diário.</p></noscript>
     <div id="sessao-aviso" class="notice error" hidden>
-      <p>Sua sessão precisa ser renovada. O texto ainda está nesta aba.</p>
+      <p>Sua sessão expirou. Mantenha esta aba aberta para não perder o texto.</p>
       <a th:href="@{/login}" target="_blank" rel="noopener">Entrar novamente em outra aba</a>
-      <button id="retomar" class="quiet" type="button">Já entrei; retomar</button>
+      <button id="retomar" class="quiet" type="button">Continuar</button>
     </div>
-    <label for="texto" class="editor-label">O que você gostaria de registrar?</label>
-    <textarea id="texto" maxlength="20000" placeholder="Este espaço é seu. Escreva livremente…" spellcheck="true" aria-describedby="estado limite" disabled></textarea>
+    <label for="texto" class="editor-label">Como foi seu dia?</label>
+    <textarea id="texto" maxlength="20000" placeholder="O que aconteceu hoje? Como você se sentiu?" spellcheck="true" aria-describedby="estado limite" disabled></textarea>
+    <fieldset class="wellbeing-fields" aria-label="Como me senti, preenchimento opcional">
+      <legend>Como me senti <span>opcional</span></legend>
+      <div><label for="humor">Humor geral</label><select id="humor" disabled><option value="">Não informar</option><option value="MUITO_BAIXO">Muito baixo</option><option value="BAIXO">Baixo</option><option value="NEUTRO">Neutro</option><option value="BOM">Bom</option><option value="MUITO_BOM">Muito bom</option></select></div>
+      <div><label for="energia">Energia</label><select id="energia" disabled><option value="">Não informar</option><option value="BAIXA">Baixa</option><option value="MEDIA">Média</option><option value="ALTA">Alta</option></select></div>
+    </fieldset>
     <div class="editor-footer"><span id="estado" role="status" aria-live="polite">Carregando…</span><span id="limite">0 / 20.000</span></div>
-    <div class="editor-actions"><button id="excluir" class="danger quiet" disabled>Excluir página</button><button id="reabrir" class="quiet" disabled>Reabrir data</button><button id="salvar" class="primary" disabled>Salvar página</button></div>
-    <p class="save-note">Salve antes de sair. Alterações ficam nesta aba até serem confirmadas pelo servidor.</p>
+    <div class="editor-actions"><details class="page-options" data-mobile-panel open><summary>Mais opções</summary><div class="page-options-menu"><button id="excluir" class="danger quiet" disabled>Excluir página</button><button id="reabrir" class="quiet" disabled>Recarregar página</button></div></details><button id="salvar" class="primary" disabled>Salvar página</button></div>
+    <p class="save-note">Lembre-se de salvar antes de sair.</p>
+    <button id="virar-proxima" type="button" class="page-corner" aria-label="Virar para o próximo dia" title="Próximo dia" disabled><span aria-hidden="true">›</span></button>
   </section>
 </main>
-<footer class="app-footer">Um registro por dia. Sem pressa, sem julgamentos.<span>Protótipo acadêmico · Entrega 2</span></footer>
+<footer class="app-footer">MeNota</footer>
 <dialog id="confirmacao" aria-labelledby="confirmacao-titulo"><form method="dialog"><h2 id="confirmacao-titulo">Confirmar ação</h2><p id="confirmacao-texto"></p><div class="dialog-actions"><button value="cancelar" class="quiet">Cancelar</button><button value="confirmar" class="primary">Confirmar</button></div></form></dialog>
-</body></html>
+<nav class="mobile-nav" aria-label="Navegação principal"><a th:href="@{/}" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5zM8 2v4m8-4v4M8 10h8M8 14h5"/></svg><span>Agenda</span></a><a th:href="@{/resumos}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V5m0 15h17M8 15l4-5 4 2 5-7"/></svg><span>Emoções</span></a><a th:href="@{/compartilhamento}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-6 9v-2a6 6 0 0 1 12 0v2m3-14a3 3 0 0 1 0 6m0 3a4 4 0 0 1 3 4"/></svg><span>Acesso</span></a></nav></body></html>

@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Criar conta · MeNota</title><link rel="stylesheet" th:href="@{/css/diario.css}"></head>
-<body class="auth-page"><main class="auth-card">
-  <span class="eyebrow">MENOTA DIGITAL</span>
-  <h1>Comece uma<br>nova página.</h1>
-  <p class="intro">Você só precisa de um usuário e uma senha.</p>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"><title>Criar conta · MeNota</title><link rel="stylesheet" th:href="@{/css/diario.css}"><link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}"><link rel="preload" th:href="@{/fonts/Caveat-Variable.ttf}" as="font" type="font/ttf" crossorigin><meta name="theme-color" content="#225D70"><link rel="stylesheet" th:href="@{/css/mobile.css}"><script th:src="@{/js/mobile.js}" defer></script></head>
+<body class="auth-page"><aside class="auth-welcome" aria-label="Sobre o diário">
+  <a class="brand" th:href="@{/}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <h2>Um momento para se perceber.</h2>
+  <p>Escreva o que sente. Volte às suas palavras. Perceba-se aos poucos.</p>
+  <svg class="journal-art" viewBox="0 0 360 180" fill="none" aria-hidden="true">
+    <rect x="35" y="15" width="228" height="145" rx="16" fill="#dcecf0"/>
+    <rect x="65" y="2" width="228" height="145" rx="16" fill="white" stroke="#a7c5ce"/>
+    <path d="M91 31h90M91 46h170M91 60h136" stroke="#aac0c8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M92 111c26 0 30-31 57-31s28 42 53 31 27-29 60-29" stroke="#225D70" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="149" cy="80" r="6" fill="#225D70"/><circle cx="202" cy="111" r="6" fill="#225D70"/>
+    <circle cx="278" cy="136" r="29" fill="#f5c9c2"/>
+    <path d="m266 136 8 8 16-17" stroke="#225D70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</aside>
+<main class="auth-card">
+  <span class="eyebrow">MeNota</span>
+  <h1>Criar conta</h1>
+  <p class="intro">Escolha seu usuário e sua senha.</p>
   <form th:action="@{/cadastro}" method="post" th:object="${cadastro}">
+    <label for="perfil">Quero usar como</label>
+    <select id="perfil" th:field="*{perfil}"><option value="PACIENTE">Paciente</option><option value="PROFISSIONAL">Profissional de saúde</option></select>
+    <p class="field-error" th:errors="*{perfil}"></p>
     <label for="login">Usuário</label>
     <input id="login" th:field="*{login}" autocomplete="username" required pattern="[a-z0-9_]{3,30}" minlength="3" maxlength="30" aria-describedby="login-help login-error">
-    <small id="login-help">De 3 a 30 letras minúsculas, números ou sublinhado. Evite seu nome real.</small>
+    <small id="login-help">Use letras minúsculas, números ou _.</small>
     <p class="field-error" id="login-error" th:errors="*{login}"></p>
     <label for="senha">Senha</label>
     <input id="senha" name="senha" type="password" autocomplete="new-password" minlength="12" maxlength="72" required aria-describedby="senha-help senha-error">
-    <small id="senha-help">De 12 a 72 caracteres, até 72 bytes. Não reutilize uma senha pessoal.</small>
+    <small id="senha-help">Pelo menos 12 caracteres.</small>
     <p class="field-error" id="senha-error" th:errors="*{senha}"></p>
-    <button class="primary full" type="submit">Criar minha conta</button>
+    <button class="primary full" type="submit">Criar conta</button>
   </form>
   <p class="auth-link">Já tem uma conta? <a th:href="@{/login}">Entrar</a></p>
-  <p class="privacy-note">Não há recuperação de senha nesta versão. Guarde suas credenciais em local seguro. Use apenas dados fictícios.</p>
+  <p class="privacy-note">Ainda não é possível recuperar a senha.</p>
 </main></body></html>

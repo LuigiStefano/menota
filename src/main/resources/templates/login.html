@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Entrar · MeNota</title><link rel="stylesheet" th:href="@{/css/diario.css}"></head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"><title>Entrar · MeNota</title><link rel="stylesheet" th:href="@{/css/diario.css}"><link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}"><link rel="preload" th:href="@{/fonts/Caveat-Variable.ttf}" as="font" type="font/ttf" crossorigin><meta name="theme-color" content="#225D70"><link rel="stylesheet" th:href="@{/css/mobile.css}"><script th:src="@{/js/mobile.js}" defer></script></head>
 <body class="auth-page">
+<aside class="auth-welcome" aria-label="Sobre o diário">
+  <a class="brand" th:href="@{/}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <h2>Um momento para se perceber.</h2>
+  <p>Escreva o que sente. Volte às suas palavras. Perceba-se aos poucos.</p>
+  <svg class="journal-art" viewBox="0 0 360 180" fill="none" aria-hidden="true">
+    <rect x="35" y="15" width="228" height="145" rx="16" fill="#dcecf0"/>
+    <rect x="65" y="2" width="228" height="145" rx="16" fill="white" stroke="#a7c5ce"/>
+    <path d="M91 31h90M91 46h170M91 60h136" stroke="#aac0c8" stroke-width="5" stroke-linecap="round"/>
+    <path d="M92 111c26 0 30-31 57-31s28 42 53 31 27-29 60-29" stroke="#225D70" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="149" cy="80" r="6" fill="#225D70"/><circle cx="202" cy="111" r="6" fill="#225D70"/>
+    <circle cx="278" cy="136" r="29" fill="#f5c9c2"/>
+    <path d="m266 136 8 8 16-17" stroke="#225D70" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</aside>
 <main class="auth-card">
-  <span class="eyebrow">MENOTA DIGITAL</span>
-  <h1>Um espaço para<br>suas palavras.</h1>
-  <p class="intro">Escreva no seu tempo. Volte quando quiser.</p>
+  <span class="eyebrow">MeNota</span>
+  <h1>Entrar no MeNota</h1>
+  <p class="intro">Acesse sua conta para continuar.</p>
   <p class="notice error" role="alert" th:if="${param.error}">Usuário ou senha inválidos. Tente novamente.</p>
   <p class="notice" role="status" th:if="${param.cadastro}">Conta criada. Agora você pode entrar.</p>
   <p class="notice" role="status" th:if="${param.saiu}">Você saiu da sua conta.</p>
   <form th:action="@{/login}" method="post">
-    <label for="username">Usuário</label><input id="username" name="username" autocomplete="username" maxlength="30" required autofocus>
+    <label for="username">Usuário</label><input id="username" name="username" autocomplete="username" maxlength="30" required>
     <label for="password">Senha</label><input id="password" name="password" type="password" autocomplete="current-password" required>
-    <button class="primary full" type="submit">Entrar no diário</button>
+    <button class="primary full" type="submit">Entrar</button>
   </form>
-  <p class="auth-link">Primeira vez aqui? <a th:href="@{/cadastro}">Criar uma conta</a></p>
-  <p class="privacy-note">Protótipo acadêmico. Use apenas relatos fictícios.<br>Seus registros não são compartilhados com o atendimento da faculdade.</p>
+  <p class="auth-link">Não tem uma conta? <a th:href="@{/cadastro}">Criar uma conta</a></p>
+  <p class="privacy-note">Você escolhe com quem compartilhar seus registros.</p>
 </main>
 </body></html>

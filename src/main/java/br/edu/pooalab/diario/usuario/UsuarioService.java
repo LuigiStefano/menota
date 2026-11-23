@@ -16,10 +16,16 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void cadastrar(String login, String senha) {
+    public void cadastrar(String login, String senha) { cadastrar(login, senha, "PACIENTE"); }
+
+    @Transactional
+    public void cadastrar(String login, String senha, String perfil) {
+        if (!java.util.Set.of("PACIENTE", "PROFISSIONAL").contains(perfil)) throw new IllegalArgumentException("Escolha um perfil válido.");
         if (senha.getBytes(StandardCharsets.UTF_8).length > 72) {
-            throw new IllegalArgumentException("A senha deve ocupar no máximo 72 bytes. Reduza seu tamanho.");
+            throw new IllegalArgumentException("A senha é longa demais. Use uma senha mais curta.");
         }
-        usuarios.saveAndFlush(new Usuario(login, senhas.encode(senha)));
+        var usuario = new Usuario(login, senhas.encode(senha));
+        usuario.setPerfil(perfil);
+        usuarios.saveAndFlush(usuario);
     }
 }
