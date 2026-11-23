@@ -1,8 +1,12 @@
 # MeNota
 
-O MeNota é uma agenda reflexiva para estudantes universitários em acompanhamento psicológico ou psiquiátrico. Permite escrever e rever páginas por data, analisar um período e autorizar um profissional a consultar os registros. Use dados fictícios na demonstração.
+O MeNota é uma agenda reflexiva para estudantes universitários.
+Permite registrar experiências e rever páginas pelo calendário.
+O paciente pode gerar análises por período e autorizar a consulta por um profissional.
 
-Consultas com tempo limitado e a dificuldade de lembrar ou verbalizar experiências motivaram o projeto. A escrita livre ajuda a registrar o que aconteceu perto do momento em que ocorreu. A escolha de compartilhar fica com o paciente. Veja as hipóteses e as conversas anonimizadas na [validação](docs/problema-validacao.md).
+## Problema, público e proposta de valor
+
+O projeto é voltado a estudantes em acompanhamento psicológico ou psiquiátrico. Consultas com tempo limitado e a dificuldade de lembrar ou verbalizar experiências motivaram o projeto. A escrita livre ajuda a registrar o que aconteceu perto do momento em que ocorreu. A escolha de compartilhar fica com o paciente. Veja as hipóteses e as conversas anonimizadas na [validação](docs/problema-validacao.md).
 
 ## Instalar em outro computador
 
@@ -56,6 +60,8 @@ CREATE DATABASE menota_diario OWNER menota_diario_app;
 Gere `DIARIO_KEY` com `openssl rand -base64 32` ou, no PowerShell, com `[Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(32))` no PowerShell 7. Guarde o valor fora do Git para restaurá-lo em futuras execuções. Configure essas variáveis no ambiente do processo, conforme o [exemplo](.env.example). Execute `./mvnw -DskipTests package` no Linux/macOS ou `.\mvnw.cmd -DskipTests package` no Windows e depois `java -jar target/menota.jar`. Na IDE, importe o `pom.xml` da raiz, selecione JDK 21 e configure as mesmas variáveis para a classe `br.edu.pooalab.diario.DiarioApplication`. O esquema é preparado no início e os dados ficam no PostgreSQL.
 
 ## Roteiro curto de demonstração
+
+Na tela de entrada, clique em **Ver prévia com exemplos** para explorar três páginas fictícias, uma análise preenchida e um exemplo de compartilhamento. A prévia também abre diretamente em `/preview`.
 
 1. Abra o MeNota, clique em **Criar conta** e cadastre `paciente_demo` como **Paciente**. Em uma janela anônima ou em outro perfil do navegador, cadastre `profissional_demo` como **Profissional de saúde**. Use senhas fictícias com pelo menos 12 caracteres.
 2. Entre como paciente. Em **Minha agenda**, escolha uma data e escreva um relato fictício, por exemplo: “Fiquei feliz quando concluí a atividade em grupo, embora tenha sentido cansaço depois.” Marque humor ou energia se desejar e clique em **Salvar página**. Escolha outra data e retorne para mostrar o marcador e o texto salvo.

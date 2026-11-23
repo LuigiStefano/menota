@@ -35,6 +35,9 @@ public class PaginasController {
     @GetMapping("/login")
     String login() { return "login"; }
 
+    @GetMapping("/preview")
+    String preview() { return "preview"; }
+
     @GetMapping("/cadastro")
     String cadastro(Model model) { model.addAttribute("cadastro", new Cadastro()); return "cadastro"; }
 

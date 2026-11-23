@@ -23,7 +23,7 @@ public class SegurancaConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/cadastro", "/css/**", "/js/**", "/images/**", "/fonts/**", "/error").permitAll()
+                .requestMatchers("/login", "/cadastro", "/preview", "/css/**", "/js/**", "/images/**", "/fonts/**", "/error").permitAll()
                 .requestMatchers("/api/registros", "/api/registros/**", "/api/resumos", "/api/resumos/**").hasRole("PACIENTE")
                 .anyRequest().authenticated())
             .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/", true).permitAll())

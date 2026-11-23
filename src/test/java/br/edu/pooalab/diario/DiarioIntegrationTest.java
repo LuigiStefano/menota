@@ -78,6 +78,8 @@ class DiarioIntegrationTest {
     }
 
     @Test void bloqueiaAcessoAnonimoECsrf() throws Exception {
+        mvc.perform(get("/preview"))
+            .andExpect(status().isOk()).andExpect(view().name("preview")).andExpect(unauthenticated());
         mvc.perform(get("/")).andExpect(status().is3xxRedirection());
         mvc.perform(get("/api/registros").param("data", "2026-10-27")).andExpect(status().isUnauthorized());
         mvc.perform(put("/api/registros").with(user("aluno_a").roles("PACIENTE"))).andExpect(status().isForbidden());

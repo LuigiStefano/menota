@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#225D70">
+  <title>Prévia · MeNota</title>
+  <link rel="icon" type="image/svg+xml" th:href="@{/images/menota-icon.svg}">
+  <link rel="stylesheet" th:href="@{/css/diario.css}">
+  <link rel="stylesheet" th:href="@{/css/preview.css}">
+</head>
+<body class="preview-page">
+<a class="skip-link" href="#agenda">Ir para a agenda de exemplo</a>
+<header class="app-header">
+  <a class="brand" th:href="@{/login}"><img class="brand-logo" th:src="@{/images/menota-logo.png}" alt="MeNota" width="210" height="71"></a>
+  <a class="preview-action" th:href="@{/login}">Entrar no MeNota</a>
+</header>
+<main class="preview-main">
+  <div class="preview-intro">
+    <p class="eyebrow">Prévia interativa · Dados fictícios</p>
+    <h1>Minha agenda</h1>
+    <p>Escolha um dia marcado, veja como os relatos aparecem na análise e confira o que um profissional autorizado pode consultar.</p>
+  </div>
+  <nav class="preview-nav" aria-label="Seções da prévia">
+    <a href="#agenda">Agenda</a>
+    <a href="#analise">Análise do período</a>
+    <a href="#acesso">Acesso profissional</a>
+  </nav>
+
+  <section id="agenda" class="preview-book" aria-label="Agenda de exemplo">
+    <div class="preview-calendar">
+      <h2>Novembro de 2026</h2>
+      <fieldset class="preview-days">
+        <legend>Semana de 16 a 22</legend>
+        <label>
+          <input type="radio" name="pagina" id="previa-segunda" checked>
+          <span><small>Seg</small>16</span>
+        </label>
+        <span><small>Ter</small>17</span>
+        <label>
+          <input type="radio" name="pagina" id="previa-quarta">
+          <span><small>Qua</small>18</span>
+        </label>
+        <span><small>Qui</small>19</span>
+        <label>
+          <input type="radio" name="pagina" id="previa-sexta">
+          <span><small>Sex</small>20</span>
+        </label>
+        <span><small>Sáb</small>21</span>
+        <span><small>Dom</small>22</span>
+      </fieldset>
+      <p class="preview-legend"><span aria-hidden="true"></span> Com relato salvo</p>
+    </div>
+
+    <div class="preview-notes">
+      <article class="preview-note" id="pagina-segunda">
+        <time datetime="2026-11-16">Segunda-feira, 16 de novembro</time>
+        <h2>Uma apresentação pronta</h2>
+        <p>Terminei a apresentação com meu grupo. Fiquei contente quando a gente conseguiu explicar a ideia sem olhar tanto para os slides. Depois da aula, fui para casa mais cansada do que esperava.</p>
+        <dl class="preview-mood"><div><dt>Humor</dt><dd>Bom</dd></div><div><dt>Energia</dt><dd>Baixa</dd></div></dl>
+      </article>
+      <article class="preview-note" id="pagina-quarta">
+        <time datetime="2026-11-18">Quarta-feira, 18 de novembro</time>
+        <h2>Um dia de muita coisa</h2>
+        <p>Fiquei preocupada com duas entregas marcadas para a mesma semana. Anotei os prazos no caderno e separei o que dava para começar naquela tarde. Ainda fiquei pensando se ia conseguir dar conta.</p>
+        <dl class="preview-mood"><div><dt>Humor</dt><dd>Baixo</dd></div><div><dt>Energia</dt><dd>Média</dd></div></dl>
+      </article>
+      <article class="preview-note" id="pagina-sexta">
+        <time datetime="2026-11-20">Sexta-feira, 20 de novembro</time>
+        <h2>Uma pausa no caminho</h2>
+        <p>Entreguei o trabalho que mais me preocupava e senti alívio. Na volta para casa, caminhei devagar e deixei o celular na bolsa. Foi bom fazer uma pausa antes de pensar na próxima semana.</p>
+        <dl class="preview-mood"><div><dt>Humor</dt><dd>Bom</dd></div><div><dt>Energia</dt><dd>Média</dd></div></dl>
+      </article>
+    </div>
+  </section>
+
+  <section id="analise" class="summary-results preview-section">
+    <p class="eyebrow">Análise de exemplo · 16 a 20 de novembro</p>
+    <h2>Como foi o período</h2>
+    <p>Você ficou contente com a apresentação do grupo, embora tenha terminado o dia com pouca energia. Dois dias depois, os prazos próximos trouxeram preocupação. Na sexta, você relatou alívio depois de entregar o trabalho que mais a preocupava e aproveitou a caminhada de volta para fazer uma pausa.</p>
+    <div class="emotion-panel">
+      <h3>Emoções e trechos do relato</h3>
+      <ul class="emotion-list">
+        <li><span class="emotion-name">Alegria</span><time class="emotion-date" datetime="2026-11-16">16 de novembro</time><blockquote>“Fiquei contente quando a gente conseguiu explicar a ideia sem olhar tanto para os slides.”</blockquote></li>
+        <li><span class="emotion-name">Preocupação</span><time class="emotion-date" datetime="2026-11-18">18 de novembro</time><blockquote>“Fiquei preocupada com duas entregas marcadas para a mesma semana.”</blockquote></li>
+        <li><span class="emotion-name">Alívio</span><time class="emotion-date" datetime="2026-11-20">20 de novembro</time><blockquote>“Entreguei o trabalho que mais me preocupava e senti alívio.”</blockquote></li>
+      </ul>
+    </div>
+    <p class="help-text">Esta análise é ilustrativa. No diário, a análise por IA deve ser conferida com os relatos originais.</p>
+  </section>
+
+  <section id="acesso" class="summary-results preview-section">
+    <h2>Acesso profissional</h2>
+    <div class="preview-access">
+      <p><strong>profissional_demo</strong><br><span class="help-text">Conta fictícia de acompanhamento</span></p>
+      <span class="preview-access-state">Acesso autorizado</span>
+    </div>
+    <p>Uma conta autorizada pode consultar os relatos, o humor e a energia informados e as análises já salvas. Na sua agenda, você pode revogar o acesso a qualquer momento.</p>
+    <a class="preview-action" th:href="@{/cadastro}">Criar minha conta</a>
+  </section>
+</main>
+</body>
+</html>
