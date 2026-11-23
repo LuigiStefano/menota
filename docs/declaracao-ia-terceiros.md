@@ -52,7 +52,7 @@ A equipe é responsável pela exatidão destas informações, pela revisão e pe
 
 | Integrante | Ciência registrada para a declaração anterior |
 | --- | --- |
-| Filipe Ribeiro Marques | Pendente |
+| Filipe Ribeiro Marques | 23/11/2026 |
 | Luigi Stefano Vianna de Araújo Darzé | 22/11/2026 |
 | Mikael Souza Barbosa | Pendente |
 | Robert Wagner Lima Ramos Junior | 21/11/2026 |
