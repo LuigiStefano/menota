@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Criar conta · MeNota</title><link rel="stylesheet" th:href="@{/css/diario.css}"></head>
+<body class="auth-page"><main class="auth-card">
+  <span class="eyebrow">MENOTA DIGITAL</span>
+  <h1>Comece uma<br>nova página.</h1>
+  <p class="intro">Você só precisa de um usuário e uma senha.</p>
+  <form th:action="@{/cadastro}" method="post" th:object="${cadastro}">
+    <label for="login">Usuário</label>
+    <input id="login" th:field="*{login}" autocomplete="username" required pattern="[a-z0-9_]{3,30}" minlength="3" maxlength="30" aria-describedby="login-help login-error">
+    <small id="login-help">De 3 a 30 letras minúsculas, números ou sublinhado. Evite seu nome real.</small>
+    <p class="field-error" id="login-error" th:errors="*{login}"></p>
+    <label for="senha">Senha</label>
+    <input id="senha" name="senha" type="password" autocomplete="new-password" minlength="12" maxlength="72" required aria-describedby="senha-help senha-error">
+    <small id="senha-help">De 12 a 72 caracteres, até 72 bytes. Não reutilize uma senha pessoal.</small>
+    <p class="field-error" id="senha-error" th:errors="*{senha}"></p>
+    <button class="primary full" type="submit">Criar minha conta</button>
+  </form>
+  <p class="auth-link">Já tem uma conta? <a th:href="@{/login}">Entrar</a></p>
+  <p class="privacy-note">Não há recuperação de senha nesta versão. Guarde suas credenciais em local seguro. Use apenas dados fictícios.</p>
+</main></body></html>

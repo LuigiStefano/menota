@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" th:content="${_csrf.token}"><meta name="csrf-header" th:content="${_csrf.headerName}"><meta name="usuario" th:content="${login}">
+  <title>Meus resumos · MeNota</title>
+  <link rel="stylesheet" th:href="@{/css/diario.css}"><script th:src="@{/js/resumos.js}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#inicio">Ir para o período</a>
+<header class="app-header"><a class="brand" th:href="@{/}"><span class="brand-mark" aria-hidden="true">m.</span>MeNota</a>
+  <div class="header-actions"><a th:href="@{/}" class="nav-link">Meu diário</a><form th:action="@{/logout}" method="post"><span class="username" th:text="${login}"></span><button class="quiet" type="submit">Sair</button></form></div>
+</header>
+<main class="summaries-workspace">
+  <section class="summary-intro"><span class="eyebrow">SEUS REGISTROS EM PERSPECTIVA</span><h1>Volte às suas palavras.</h1><p>Escolha um período para reunir os acontecimentos que você registrou.</p></section>
+  <div class="summary-grid">
+    <aside class="summary-settings">
+      <h2>Um resumo do período</h2>
+      <form id="gerar-form">
+        <label for="inicio">De</label><input id="inicio" type="date" required>
+        <label for="fim">Até</label><input id="fim" type="date" required>
+        <p class="help-text">Até 31 dias e 24.000 caracteres. Somente páginas já salvas serão usadas.</p>
+        <div class="privacy-box"><strong>Antes de enviar</strong><p>As datas e os textos desse período serão enviados ao Google Gemini. No plano gratuito, o Google pode usar o conteúdo para melhorar seus produtos.</p><p>Use apenas relatos fictícios. O resumo não faz diagnósticos e não substitui atendimento profissional.</p></div>
+        <label class="checkbox-label" for="consentimento"><input id="consentimento" type="checkbox" required><span>Estou usando relatos fictícios e autorizo o envio ao Google para gerar este resumo.</span></label>
+        <button id="gerar" type="submit" class="primary full" disabled>Gerar resumo</button>
+        <p id="estado-resumo" role="status" aria-live="polite" class="help-text">Conferindo a configuração…</p>
+      </form>
+      <div id="chave-aviso" class="notice" hidden>A geração ainda não está configurada. Configure a chave Gemini no computador que executa o diário e reinicie a aplicação.</div>
+      <div id="sessao-resumo" class="notice error" hidden>Sua sessão terminou ou a conta mudou. <a th:href="@{/login}">Entre novamente</a> para continuar. Resumos já concluídos ficam no histórico.</div>
+    </aside>
+    <section class="summary-results" aria-label="Histórico e conteúdo dos resumos">
+      <div class="history-heading"><h2>Meus resumos</h2><button id="atualizar" type="button" class="quiet">Atualizar histórico</button></div>
+      <p class="help-text">Últimos 20 resumos. Alterar, criar ou excluir uma página do período remove o resumo correspondente.</p>
+      <p id="historico-estado" role="status">Carregando histórico…</p>
+      <ul id="historico" class="summary-history"></ul>
+      <article id="resultado" class="summary-result" hidden aria-labelledby="resultado-titulo">
+        <span class="eyebrow">RESUMO DOS SEUS REGISTROS</span><h2 id="resultado-titulo"></h2>
+        <p id="resultado-texto" class="summary-text"></p>
+        <dl class="summary-metadata"><dt>Registros utilizados</dt><dd id="resultado-fontes"></dd><dt>Gerado em</dt><dd id="resultado-data"></dd><dt>Modelo</dt><dd id="resultado-modelo"></dd></dl>
+        <p class="help-text">Confira com os registros originais. A IA pode omitir detalhes ou cometer erros. Nenhum resumo é enviado ao atendimento da faculdade.</p>
+      </article>
+    </section>
+  </div>
+  <noscript><p class="notice error">Ative o JavaScript para gerar e consultar resumos.</p></noscript>
+</main>
+<footer class="app-footer">Apenas o que você escreveu, dentro do período escolhido.<span>Protótipo acadêmico · Entrega 2</span></footer>
+</body></html>

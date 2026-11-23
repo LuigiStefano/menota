@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" th:content="${_csrf.token}"><meta name="csrf-header" th:content="${_csrf.headerName}">
+  <meta name="usuario" th:content="${login}">
+  <title>Meu diário · MeNota</title>
+  <link rel="stylesheet" th:href="@{/css/diario.css}"><script th:src="@{/js/diario.js}" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#texto">Ir para a escrita</a>
+<header class="app-header">
+  <a class="brand" th:href="@{/}"><span class="brand-mark" aria-hidden="true">m.</span>MeNota</a>
+  <div class="header-actions"><a th:href="@{/resumos}" class="nav-link">Meus resumos</a><form id="logout" th:action="@{/logout}" method="post"><span class="username" th:text="${login}"></span><button class="quiet" type="submit">Sair</button></form></div>
+</header>
+<main class="workspace">
+  <aside class="sidebar" aria-label="Navegação por datas">
+    <span class="eyebrow">SEU ESPAÇO DE ESCRITA</span>
+    <h1>Uma página<br>de cada vez.</h1>
+    <p>Não precisa ter um assunto.<br>Comece por onde fizer sentido.</p>
+    <div class="date-picker">
+      <label for="data">Escolha uma data</label>
+      <input id="data" type="date" required disabled>
+      <div class="date-actions"><button id="anterior" class="quiet" aria-label="Dia anterior" disabled>←</button><button id="hoje" class="quiet" disabled>Hoje</button><button id="proximo" class="quiet" aria-label="Próximo dia" disabled>→</button></div>
+    </div>
+    <div class="sidebar-note"><strong>Este diário é seu.</strong><p>Não há compartilhamento automático com psicólogos ou com a faculdade.</p><p>Versão acadêmica: use relatos fictícios para experimentar.</p></div>
+  </aside>
+  <section class="writing-area" aria-labelledby="titulo-data">
+    <div class="page-heading"><div><span class="eyebrow" id="dia-semana">MEU DIÁRIO</span><h2 id="titulo-data">Abrindo sua página…</h2></div><span class="page-label">ESCRITA LIVRE</span></div>
+    <noscript><p class="notice error">Ative o JavaScript para consultar e salvar as páginas do diário.</p></noscript>
+    <div id="sessao-aviso" class="notice error" hidden>
+      <p>Sua sessão precisa ser renovada. O texto ainda está nesta aba.</p>
+      <a th:href="@{/login}" target="_blank" rel="noopener">Entrar novamente em outra aba</a>
+      <button id="retomar" class="quiet" type="button">Já entrei; retomar</button>
+    </div>
+    <label for="texto" class="editor-label">O que você gostaria de registrar?</label>
+    <textarea id="texto" maxlength="20000" placeholder="Este espaço é seu. Escreva livremente…" spellcheck="true" aria-describedby="estado limite" disabled></textarea>
+    <div class="editor-footer"><span id="estado" role="status" aria-live="polite">Carregando…</span><span id="limite">0 / 20.000</span></div>
+    <div class="editor-actions"><button id="excluir" class="danger quiet" disabled>Excluir página</button><button id="reabrir" class="quiet" disabled>Reabrir data</button><button id="salvar" class="primary" disabled>Salvar página</button></div>
+    <p class="save-note">Salve antes de sair. Alterações ficam nesta aba até serem confirmadas pelo servidor.</p>
+  </section>
+</main>
+<footer class="app-footer">Um registro por dia. Sem pressa, sem julgamentos.<span>Protótipo acadêmico · Entrega 2</span></footer>
+<dialog id="confirmacao" aria-labelledby="confirmacao-titulo"><form method="dialog"><h2 id="confirmacao-titulo">Confirmar ação</h2><p id="confirmacao-texto"></p><div class="dialog-actions"><button value="cancelar" class="quiet">Cancelar</button><button value="confirmar" class="primary">Confirmar</button></div></form></dialog>
+</body></html>
