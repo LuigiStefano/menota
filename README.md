@@ -69,6 +69,12 @@ Na tela de entrada, clique em **Ver prévia com exemplos** para explorar três p
 4. Em **Compartilhar** (**Acesso** no celular), informe `profissional_demo`, leia o alcance e confirme a autorização. Entre na outra janela como profissional, selecione o paciente e consulte o mesmo intervalo.
 5. Na conta do paciente, remova o acesso. Na conta profissional, refaça a consulta e confira que a autorização foi revogada.
 
+## Demonstração em vídeo (contingência)
+
+[![Demonstração do MVP MeNota](https://img.youtube.com/vi/Ke55O1jBuKU/maxresdefault.jpg)](https://www.youtube.com/watch?v=Ke55O1jBuKU)
+
+*Clique na imagem acima para assistir à gravação de contingência no YouTube.*
+
 ## Como funciona
 
 ### Cadastro, login e sessão
