@@ -54,7 +54,7 @@ A equipe é responsável pela exatidão destas informações, pela revisão e pe
 | --- | --- |
 | Filipe Ribeiro Marques | 23/11/2026 |
 | Luigi Stefano Vianna de Araújo Darzé | 22/11/2026 |
-| Mikael Souza Barbosa | Pendente |
+| Mikael Souza Barbosa | 23/11/2026 |
 | Robert Wagner Lima Ramos Junior | 21/11/2026 |
 | Victor Amadeu Sant Anna de Medeiros | 21/11/2026 |
 
